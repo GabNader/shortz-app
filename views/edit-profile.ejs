@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil | Shortz-App</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/feed">
+                <i class="bi bi-play-fill"></i> SHORTZ
+            </a>
+            <div class="d-flex align-items-center">
+                <a href="/feed" class="btn btn-light btn-sm rounded-pill px-3 me-2">Voltar ao Feed</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+
+                <!-- Alertas -->
+                <% if (messages.error && messages.error.length> 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <%= messages.error %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+
+                <% if (messages.success && messages.success.length> 0) { %>
+                    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <%= messages.success %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+
+                <div class="card profile-card p-4">
+                    <h4 class="fw-bold mb-4">Editar Perfil</h4>
+
+                    <!-- Formulário com enctype multipart/form-data para upload -->
+                    <form action="/profile/edit" method="POST" enctype="multipart/form-data">
+
+                        <!-- Foto de Perfil -->
+                        <div class="text-center mb-4">
+                            <div class="position-relative d-inline-block">
+                                <img src="<%= user.profilePicture ? '/uploads/profiles/' + user.profilePicture : '/images/default-profile.png' %>"
+                                    alt="Avatar" class="avatar-preview mb-3" id="imgPreview" width="128" height="128">
+                                <label for="profilePicture"
+                                    class="btn btn-sm btn-dark position-absolute bottom-0 end-0 rounded-circle"
+                                    style="width: 35px; height: 35px; padding: 5px;">
+                                    <i class="bi bi-camera-fill"></i>
+                                </label>
+                                <input type="file" class="d-none" id="profilePicture" name="profilePicture" accept="image/*"
+                                    onchange="previewImage(this)">
+                            </div>
+                            <p class="small text-muted mt-2">Clique no ícone para alterar sua foto</p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label fw-semibold">Nome de Usuário</label>
+                            <input type="text" class="form-control bg-light border-0" id="username"
+                                value="<%= user.username %>" disabled>
+                            <div class="form-text text-muted">O nome de usuário não pode ser alterado.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label fw-semibold">Nome Completo</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName"
+                                value="<%= user.fullName || '' %>" placeholder="Seu nome completo">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="bio" class="form-label fw-semibold">Biografia</label>
+                            <textarea class="form-control" id="bio" name="bio" rows="3" maxlength="255"
+                                placeholder="Conte um pouco sobre você..."><%= user.bio || '' %></textarea>
+                            <div class="form-text text-end small" id="charCount">0/255</div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary fw-bold py-2">Salvar Alterações</button>
+                            <a href="/feed" class="btn btn-link text-muted text-decoration-none small">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0 small">&copy; 2026 Shortz-App. Desenvolvido na disciplina ServerSide.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Preview da imagem antes do upload
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('imgPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Contador de caracteres para a bio
+        const bio = document.getElementById('bio');
+        const charCount = document.getElementById('charCount');
+
+        bio.addEventListener('input', () => {
+            charCount.textContent = `${bio.value.length}/255`;
+        });
+
+        // Inicializar contador
+        charCount.textContent = `${bio.value.length}/255`;
+    </script>
+</body>
+
+</html>
