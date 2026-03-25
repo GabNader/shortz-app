@@ -47,7 +47,6 @@ const User = sequelize.define(
       profilePicture: {
          type: DataTypes.STRING,
          allowNull: true,
-         defaultValue: 'default-profile.png'
       },
       // campo isBlocked
       isBlocked: {

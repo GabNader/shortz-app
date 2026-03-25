@@ -83,7 +83,7 @@ exports.logout = (req, res) => {
 exports.getProfile = async (userId) => {
     try {
         const user = await User.findByPk(userId, {
-            attributes: ['id', 'username', 'email', 'fullName']
+            attributes: ['id', 'username', 'email', 'fullName', 'bio', 'profilePicture'    ]
         });
         return user;
     } catch (error) {
