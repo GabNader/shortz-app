@@ -1,4 +1,4 @@
-const Comment = require("./commentModel");
+const Comment = require("./commentModel.js");
 const Video = require("../video/videoModel");
 const User = require("../user/userModel");
 

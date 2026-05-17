@@ -1,7 +1,7 @@
 const User  = require('../modules/user/userModel');
 const Video = require('../modules/video/videoModel');
 const Like = require('../modules/like/likeModel');
-const Comment = require('../modules/comment/commentModel');
+const Comment = require('../modules/comment/commentModel.js');
 
 // Associações para Video e User
 User.hasMany(Video,   { foreignKey: 'userId' });
