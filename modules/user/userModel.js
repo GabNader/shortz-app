@@ -10,11 +10,11 @@ const User = sequelize.define('User',
         fullName:       { type: DataTypes.STRING, allowNull: true },
         bio:            { type: DataTypes.STRING(255), allowNull: true },
         profilePicture: { type: DataTypes.STRING, allowNull: true, defaultValue: 'default-profile.png' },
+        followersCount: { type: DataTypes.INTEGER, defaultValue: 0 },
+        followingCount: { type: DataTypes.INTEGER, defaultValue: 0 },
         videosCount:    { type: DataTypes.INTEGER, defaultValue: 0 },
         isBlocked:      { type: DataTypes.BOOLEAN, defaultValue: false },
-        isAdmin:        { type: DataTypes.BOOLEAN, defaultValue: false },
-        followersCount: { type: DataTypes.INTEGER, defaultValue: 0 },
-        followingCount: { type: DataTypes.INTEGER, defaultValue: 0 }
+        isAdmin:        { type: DataTypes.BOOLEAN, defaultValue: false }
     },
     {
         timestamps: true,

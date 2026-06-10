@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
-    "test": "vitest --pool=forks"
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -17,16 +16,14 @@
     "express": "^4.22.1",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
     "http-errors": "~1.6.3",
     "morgan": "^1.10.1",
     "multer": "^2.1.1",
-    "mysql2": "^3.19.1",
-    "nodemon": "^3.1.14",
+    "mysql2": "^3.20.0",
     "sequelize": "^6.37.8"
   },
   "devDependencies": {
-    "@vitest/eslint-plugin": "^1.6.18",
-    "vite": "^8.0.14",
-    "vitest": "^4.1.7"
+    "nodemon": "^3.1.14"
   }
 }

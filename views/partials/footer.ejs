@@ -1,23 +1,6 @@
 <!-- Footer -->
 <footer class="bg-dark text-white py-4 mt-5">
-<div class="container text-center">
-<p class="mb-0">© 2026 Shortz-App. Desenvolvido na disciplina ServerSide.</p>
-</div>
+    <div class="container text-center">
+        <p class="mb-0">© 2026 Shortz-App. Desenvolvido na disciplina ServerSide.</p>
+    </div>
 </footer>
-views/partials/messages.ejs
-<% if (messages.error && messages.error.length > 0) { %>
-<div class="container mt-3">
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-<%= messages.error %>
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-</div>
-<% } %>
-<% if (messages.success && messages.success.length > 0) { %>
-<div class="container mt-3">
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-<%= messages.success %>
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-</div>
-<% } %>
