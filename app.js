@@ -12,6 +12,8 @@ var userRoutes = require("./modules/user/userRoutes");
 var videoRoutes = require("./modules/video/videoRoutes");
 var likeRoutes = require("./modules/like/likeRoutes"); 
 var commentRoutes = require("./modules/comment/commentRoutes"); 
+var followRoutes = require("./modules/follow/followRoutes"); // [ADICIONAR]
+
 
 var app = express();
 var expressLayouts = require('express-ejs-layouts');
@@ -47,6 +49,7 @@ app.use('/', userRoutes);
 app.use('/', videoRoutes);
 app.use('/', likeRoutes);
 app.use('/', commentRoutes);
+app.use("/", followRoutes);
 
 /*
 // catch 404 and forward to error handler

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const path = require('path');
 const { Op } = require('sequelize');
+const followService = require("../follow/followService");
 
 
 async function registerUser(username, email, password, fullName) {
@@ -96,6 +97,12 @@ async function getPublicProfile(username) {
     return user;
 }
 
+async function getFollowStatusForUser(currentUserId, profileUserId) {
+if (!currentUserId || !profileUserId) {
+return { isFollowing: false };
+}
+return await followService.getFollowStatus(currentUserId, profileUserId);
+}
 
 
 module.exports = {
@@ -103,5 +110,6 @@ module.exports = {
     loginUser,
     getUserProfile,
     updateUserProfile,
-    getPublicProfile
+    getPublicProfile,
+    getFollowStatusForUser
 };

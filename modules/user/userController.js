@@ -57,10 +57,13 @@ exports.updateProfile = asyncHandler(async (req, res) => {
 exports.renderPublicProfile = asyncHandler(async (req, res) => {
     const username = req.params.username;
     const user = await userService.getPublicProfile(username);
-
     const isOwner = req.session.user && req.session.user.id === user.id;
-
-    res.render("profile", { title: `@${user.username} | Shortz-App`, profileUser: user, isOwner });
+    let isFollowing = false;
+    if (!isOwner && req.session.user) {
+        const followStatus = await userService.getFollowStatusForUser(req.session.user.id, user.id);
+        isFollowing = followStatus.isFollowing;
+    }
+    res.render("profile", { title: `@${user.username} | Shortz-App`, profileUser: user, isOwner, isFollowing });
 });
 
 
@@ -75,7 +78,8 @@ exports.renderLoginForm = (req, res) => {
 
 
 exports.renderFeed = asyncHandler(async (req, res) => {
-    const videos = await videoService.getAllVideos();
+    const currentUserId = req.session.user ? req.session.user.id : null;
+    const videos = await videoService.getFeedVideos(currentUserId);
     res.render("feed", { title: "Feed | Shortz-App", videos });
 });
 
